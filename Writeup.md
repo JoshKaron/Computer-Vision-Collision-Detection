@@ -1,19 +1,19 @@
 # Track an Object in 3D Space Final Project
 By Josh Karon
 
-### FP1 Match 3D Objects
+### 1. Match 3D Objects
 The function matchBoundingBoxes was compleated. An 2d array of int was used as an accumulator to track the bounding box key point corrispondances. The rows of the accumulator refer to the index of the past bounding box and the columns refer to the index of the current bounding box. When a keypoint match is found to connect bounding boxes the accumulator is incremented in the appropriate cell. The best corispndance was selected for each current bounding box by moving down each column of the accumulator and pickin the index with the hightest accumulated value.
 
-### FP2 Lidar TTC
+### 2. Lidar TTC
 The function computeTTCLidar was compleated. The median x value was calcualted for the previous and current lidar vectors and used for the TTC calculation. The median x value proved to be very robust to outliers.
 
-### FP3 Associate Keypoints with Bounding Boxes
+### 3. Associate Keypoints with Bounding Boxes
 The function clusterKptMatchesWithROI was compleated. First the mean and standard deviation of the distances between key points were calculated and used to elimiate outliers by the 2 sigma rule. Then keypoint matches were assoicated with a bounding box if both points were within the bounding box.
 
-### FP4 Camera TTC
+### 4. Camera TTC
 The function computeTTCCamera was compleated. The distance ratios for all the key point pairs were calculate and the median distance ratio was used for the TTC calculation. 
 
-### FP5 Preformance Evaluation 1
+### 5. Preformance Evaluation 1
 The main part of the car that we are interested in for a colision avoidance system is the back of the car imidatly in fron of our vehicle. However sometimes other parts of the car are detefcted by the Lidar system. In our first example the side mirror was detected as well as the rear of the car.
 
 ![ex1lidar](./Report_Images/Example01Lidar.png)
@@ -34,7 +34,7 @@ In this next example the car in the front is too close and is not detected by th
 
 ![ex1ttc3](./Report_Images/Example04TTC.png)
 
-### FP6 Preformance Evaluation 2
+### 6. Preformance Evaluation 2
 The TTC calculation pipeline was preformed with various detector descriptor combinations, reuslts for the frist 15 frames are shown in Table 1. Some combinations evidently failed more than others, for example the ORB + SIFT combination retuned -inf for many of the first 15 frames. Other trials with the ORB detector aslo failed, indicating the ORB detector does not generate a sufficient number of keypoints regardless of the descriptor used. Generally the camera based TTC can be unreliable if not enough key points were generated, or if the descriptor and matching process produces incorrect matches. In the case of the ORB detector I would assume that the issue is the former seeing as the ORB detector preform pootly regardless of the descriptor being used. One combination that looks particuarly accurate in my oppionin is the SIFT - FREAK combination. Other error such as the case of FAST - BRISK in frame 4, which returned a TTC of -2880.15 was probably due to a bounding box missmatch in that given frame, seeing as all the other frames seem reasonable.
 
 
